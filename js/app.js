@@ -1,50 +1,50 @@
-// selecionar elementos
 const clear = document.querySelector('.clear');
 const dateElement = document.getElementById('date');
 const list = document.getElementById('list');
 const input = document.getElementById('input');
 
 // Classes
-const CHECK = 'fa-check-circle';
-const UNCHECK = 'fa-circle-thin';
-const LINE_THROUGH = 'lineThrough';
+const CHECK = "fa-check-circle";
+const UNCHECK = "fa-circle-thin";
+const LINE_THROUGH = "lineThrough";
 
-// variaveis
+// Variaveis
 let LIST, id;
 
-// obter item do storege
+//storage
 let data = localStorage.getItem("TODO");
 
-// checagem de dados
+// checar de dados estão vazios
 if (data) {
     LIST = JSON.parse(data);
     id = LIST.length; 
-    loadList(LIST); //
+    loadList(LIST); ce
 } else {
-  
+
     LIST = [];
     id = 0;
 }
-//carregando tarefas  
+
+// lcarregar tarefas do usuario
 function loadList(array) {
-    array.foreach(function (item) {
+    array.forEach(function (item) {
         addToDo(item.name, item.id, item.done, item.trash);
     });
 }
 
-// limpar storage
+// limpar storage local
 clear.addEventListener("click", function () {
     localStorage.clear();
     location.reload();
-});
+})
 
 // mostrar data
 const options = { weekday: "long", month: "short", day: "numeric" };
 const today = new Date();
 
-dateElement.innerHTML = today.toLocaleDateString("pt-BR", options);
+dateElement.innerHTML = today.toLocaleDateString("pt-br", options);
 
-// adicionar tarefa
+// função de adicionar tarefas
 function addToDo(toDo, id, done, trash) {
 
     if (trash) { return; }
@@ -52,19 +52,18 @@ function addToDo(toDo, id, done, trash) {
     const DONE = done ? CHECK : UNCHECK;
     const LINE = done ? LINE_THROUGH : "";
 
-    const item = `<li class="item">
-    <i class="fa ${DONE} co" job="complete" id="${id}"></i>
-                    <p class="text ${LINE}">${toDo}</p>
-                    <i class="fa fa-trash-o de" job="delete" id="${id}"></i>
+    const item = `  <li class="item">
+                        <i class="fa ${DONE} co" job="complete" id="${id}"></i>
+                        <p class="text ${LINE}">${toDo}</p>
+                        <i class="fa fa-trash-o de" job="delete" id="${id}"></i>
                     </li>
                 `;
 
-    const position = "beforeend"
-
+    const position = "beforeend";
     list.insertAdjacentHTML(position, item);
 }
 
-// adicionar tarefas pressionando enter
+// adcionar item ao precionar tecla enter
 document.addEventListener("keyup", function (even) {
     if (event.keyCode == 13) {
         const toDo = input.value;
@@ -82,11 +81,13 @@ document.addEventListener("keyup", function (even) {
 
 
             localStorage.setItem("TODO", JSON.stringify(LIST));
+
             id++;
         }
         input.value = "";
     }
 });
+
 // tarefa completa
 function completeToDo(element) {
     element.classList.toggle(CHECK);
@@ -96,7 +97,7 @@ function completeToDo(element) {
     LIST[element.id].done = LIST[element.id].done ? false : true;
 }
 
-// removendo tarefa
+// remover tarefa
 function removeToDo(element) {
     element.parentNode.parentNode.removeChild(element.parentNode);
 
@@ -105,8 +106,8 @@ function removeToDo(element) {
 
 // direcionando itens dinamicamente
 list.addEventListener("click", function (event) {
-    const element = event.target; // return the clicked element inside list
-    const elementJob = element.attributes.job.value; // complete or delete
+    const element = event.target;
+    const elementJob = element.attributes.job.value;
 
     if (elementJob == "complete") {
         completeToDo(element);
@@ -114,5 +115,6 @@ list.addEventListener("click", function (event) {
         removeToDo(element);
     }
 
+    // adicionando item no storage
     localStorage.setItem("TODO", JSON.stringify(LIST));
-});
+})
