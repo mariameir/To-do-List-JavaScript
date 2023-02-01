@@ -15,5 +15,7 @@ Tecnologias utilizadas:
  - ![List item](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 
 Status: Completo ✅
+<br>
+[Clique para ver o projeto](https://mariameir.github.io/to-do-list-javascript/)
 
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/52001215/140593717-b1ce27c7-97a3-41e5-919e-2e458e83b98c.gif)
